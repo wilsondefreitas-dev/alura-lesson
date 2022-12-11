@@ -19,11 +19,28 @@ function App() {
 
   }
 
+  function finishTask(){
+
+    if(selected){
+      setSelected(undefined);
+      setTask(prevState => prevState.map(task => {
+          return {
+            ...task,
+            selected: false,
+            done: task.done || (task.id === selected.id),
+          }
+      })
+      )
+
+    }
+
+  }
+
   return (
     <div className={style.AppStyle}>
         <Form setTask={setTask}/>
         <List tasks={tasks} selectTask={selectTask}/>
-        <Cronometro/>
+        <Cronometro selected={selected} finishTask={finishTask}/>
     </div>
   );
 }
